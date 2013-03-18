@@ -1,7 +1,6 @@
 
 var fs      = require('fs'),
     util    = require('util'),
-    EventEmitter = require('events').EventEmitter,
     _       = require('lodash'),
     path    = require('path'),
     Spec    = require('./spec').Spec;
@@ -12,8 +11,6 @@ fsfinder = {};
 fsfinder.fsFinder = function(sPath) {
   this.path = (sPath[sPath.length - 1] != path.sep)? sPath + path.sep : sPath;
 }
-
-util.inherits(fsfinder.fsFinder, EventEmitter);
 
 fsfinder.fsFinder.prototype = {
 
@@ -46,27 +43,3 @@ fsfinder.fsFinder.prototype = {
 }
 
 exports.fsFinder = fsfinder.fsFinder;
-
- /*
-   spec = {
-	  ext: '',
-	  size: function
-	  satisfies : function(file)
-   }
-   expressions: greaterThan, lessThan, ...
-
-	satisfies : function(spec) {
-		every proprety
-		satisfice property 
-		matcher = properties[key] || equal
-		satisface every matcher
-	}
-	size : 
-	file : filename
-	stat  : size, ...	
-	metadata : filename, stat, ...
-
-	spec satisface those metadata
- */   
-
-// 
