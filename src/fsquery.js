@@ -8,21 +8,21 @@ var _       = require('lodash'),
 
 
 function FSQuery(sPath) {
-    this.queryPath = _setPath.call(this, sPath);
-};
+  this.queryPath = _setPath.call(this, sPath);
+}
 
 util.inherits(FSQuery, events.EventEmitter);
 
 FSQuery.prototype.where = function(config) {
   fs.readdir(this.queryPath, function(err, files) {
-    if (err) this.emit('error', err);
+    if (err) { this.emit('error', err); }
     _findFiles.apply(this, [files, config]);  
   }.bind(this));
 }
 
 var _setPath = function(sPath) {
-  return (sPath[sPath.length - 1] != path.sep)? sPath + path.sep : sPath; 
-}
+  return (sPath[sPath.length - 1] !== path.sep)? sPath + path.sep : sPath; 
+};
 
 var _findFiles = function(files, config) {
   var count = files.length;
@@ -40,7 +40,7 @@ var _findFiles = function(files, config) {
   _.each(files, function(file) {
     var spec = new Spec(config);
     spec.satisfies(this.queryPath + file, onFile);  
-    if (--count == 0) onDone();
+    if (--count === 0) { onDone(); }
   }.bind(this))
 
 };

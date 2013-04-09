@@ -11,7 +11,29 @@ module.exports = function(grunt) {
   	  	src: 'src/<%= pkg.name %>.js',
   	  	dest: 'build/<%= pkg.name %>.min.js'
   	  }	
-  	}  
+  	},
+
+    jshint: {
+      options: {
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        sub: true,
+        undef: true,
+        eqnull: true,
+        browser: true,
+        globals: {
+          jQuery: true,
+          $: true,
+          console: true
+        }
+      },
+      src: [ 'src/**/*.js' ]
+    },
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -19,6 +41,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['uglify', 'jshint']);
 
 };

@@ -14,4 +14,4 @@ exports.ext = function(filename, callback) {
 exports.size = function(filename, callback) {
   var stat = fs.statSync(filename);    
   callback.apply(this, [null, stat.size]);
-}
+};
