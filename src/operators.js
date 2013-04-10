@@ -15,6 +15,6 @@ exports.lt = function(value) {
 
 exports.eq = function(value) {
   return function() {
-    return this === value;
+    return this == value;
   }
 };
