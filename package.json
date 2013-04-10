@@ -1,11 +1,20 @@
 {
   "name": "fsquery",
+  "description" : "Filesystem query api."
   "version": "0.1.0",
+  "engines": { "node": "~0.6.11" },
+  
   "devDependencies": {
+    "mocha": "1.6.0",
+    "should": "*",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.4.3",
     "grunt-simple-mocha": "~0.4.0",
     "grunt-contrib-concat": "~0.2.0",
     "grunt-contrib-uglify": "~0.2.0"
+  }
+
+  "scripts": {
+      "test": "mocha .test/*.js"
   }
 }

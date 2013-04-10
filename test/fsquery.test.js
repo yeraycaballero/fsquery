@@ -1,33 +1,33 @@
 var fs     = require('fs'),
-    path   = require('path'),
-    should = require('should'),
-    gt     = require('../src/operators').gt,
-    FSQuery = require('../src/fsquery').FSQuery;
+path   = require('path'),
+should = require('should'),
+gt     = require('../src/operators').gt,
+FSQuery = require('../src/fsquery').FSQuery;
 
 
 describe('fsQuery', function() {
-    var fsQuery = null;
+  var fsQuery = null;
 
-    beforeEach(function() {
-    	fsQuery = new FSQuery('./assets');
+  beforeEach(function() {
+   fsQuery = new FSQuery('./assets');
+ })
+
+  it ('should find a file by filename', function(done) {		
+    fsQuery.where({ filename : 'jordan'});
+
+    fsQuery.on('file', function(file) {
+      var filename = path.basename(file).replace(path.extname(file), '');
+      if (filename.should.equal('jordan')) done();
     })
+  });
 
-	it ('should find a file by filename', function(done) {		
-      fsQuery.where({ filename : 'jordan'});
+  it ('should find a file by extension', function(done) {
+    fsQuery.where({ ext: '.png'});
 
-      fsQuery.on('file', function(file) {
-      	var filename = path.basename(file).replace(path.extname(file), '');
-	    if (filename.should.equal('jordan')) done();
-      })
-	});
-
-	it ('should find a file by extension', function(done) {
-	  fsQuery.where({ ext: '.png'});
-
-	  fsQuery.on('file', function(file) {
-	    if (path.extname(file).should.equal('.png')) done();
-	  });
-	});
+    fsQuery.on('file', function(file) {
+      if (path.extname(file).should.equal('.png')) done();
+    });
+  });
 
   it ('should find a file by size', function(done) {
   	fsQuery.where({ size : 14730});
@@ -35,7 +35,7 @@ describe('fsQuery', function() {
   	fsQuery.on('file', function(file) {
       var size = fs.statSync(file).size;
       if (size.should.equal(14730)) done();
-  	});
+    });
   });
 
   it ('should find a file with size greater than 20000', function(done) {

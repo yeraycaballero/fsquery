@@ -1,6 +1,6 @@
 var _    = require('lodash'),
-    attr = require('./attributes'),
-    op   = require('./operators');
+attr = require('./attributes'),
+op   = require('./operators');
 
 var Spec = function(query) {
   this.query = query;
@@ -25,19 +25,19 @@ Spec.prototype.satisfies = function(file, callback) {
 };
 
 Spec.prototype.satisfiesProperty = function(file, key, callback) {
-    var attributeHandler = attr[key];
+  var attributeHandler = attr[key];
 
-    if (attributeHandler == null || attributeHandler == undefined) throw new Error('Attribute: ' + key + ' not found.');
+  if (attributeHandler == null || attributeHandler == undefined) throw new Error('Attribute: ' + key + ' not found.');
 
-    attributeHandler.apply(this, [file, function(err, res) {
-      if (err) return callback.call(this, false);
+  attributeHandler.apply(this, [file, function(err, res) {
+    if (err) return callback.call(this, false);
 
-      var value = this.query[key];
-      var context  = res;
-      var operator = (typeof value == 'function')? value : op.eq.call(context, value);
-      
-      callback.call(this, operator.call(context));
-    }]);  
+    var value = this.query[key];
+    var context  = res;
+    var operator = (typeof value == 'function')? value : op.eq.call(context, value);
+    
+    callback.call(this, operator.call(context));
+  }]);  
 };
 
 exports.Spec = Spec;

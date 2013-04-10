@@ -1,8 +1,8 @@
 
 var fs     = require('fs'),
-    should = require('should'),
-    Spec   = require('../src/spec').Spec,
-    op     = require('../src/operators');
+should = require('should'),
+Spec   = require('../src/spec').Spec,
+op     = require('../src/operators');
 
 
 describe('Spec', function() {

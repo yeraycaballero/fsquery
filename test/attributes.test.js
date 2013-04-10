@@ -1,6 +1,6 @@
 var fs     = require('fs'),
-    should = require('should'),
-    attr  = require('../src/attributes');
+should = require('should'),
+attr  = require('../src/attributes');
 
 describe('Attributes handler', function() {
 
