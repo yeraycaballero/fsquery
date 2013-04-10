@@ -5,6 +5,7 @@
   "engines": { "node": "~0.6.11" },
   
   "devDependencies": {
+    "lodash": "*",
     "mocha": "1.6.0",
     "should": "*",
     "grunt": "~0.4.1",
