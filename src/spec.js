@@ -33,10 +33,9 @@ Spec.prototype.satisfiesProperty = function(file, key, callback) {
     if (err) return callback.call(this, false);
 
     var value = this.query[key];
-    var context  = res;
-    var operator = (typeof value == 'function')? value : op.eq.call(context, value);
-    
-    callback.call(this, operator.call(context));
+    var operator = (typeof value == 'function')? value : op.eq(value);
+
+    callback.call(this, operator.call(this, res));
   }]);  
 };
 

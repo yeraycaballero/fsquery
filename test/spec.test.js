@@ -20,7 +20,7 @@ describe('Spec', function() {
   	var filename = '../assets/jordan.png';
   	var spec     = new Spec({filename : op.eq('jordan')});
 
-  	spec.satisfies(filename, function(res) {
+  	spec.satisfies(filename, function(res) {      
   		if (filename.should.equal(res)) done();
   	});
   });
@@ -32,6 +32,15 @@ describe('Spec', function() {
   	spec.satisfies(filename, function(res) {		
   		if (filename.should.equal(res)) done();
   	});
+  });
+
+  it ('should pass a specification with a le operator', function(done) {
+    var filename = './assets/jordan.png';
+    var spec     = new Spec({size : op.le(20000)});
+
+    spec.satisfies(filename, function(res) {    
+      if (filename.should.equal(res)) done();
+    });
   });
 
   it ('should pass a specification with a gt operator', function(done) {
