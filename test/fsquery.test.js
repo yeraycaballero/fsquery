@@ -10,7 +10,7 @@ describe('fsQuery', function() {
 
   beforeEach(function() {
    fsQuery = new FSQuery('./assets');
- })
+  });
 
   it ('should find a file by filename', function(done) {		
     fsQuery.where({ filename : 'jordan'});
@@ -55,5 +55,14 @@ describe('fsQuery', function() {
       	done();
       }      
     })
-  })
+  });
+
+  // it ('should find a file at any deep level', function(done) {
+  //   fsQuery.where({ filename : 'larry'});
+
+  //   fsQuery.on('file', function(file) {
+  //     var filename = path.basename(file).replace(path.extname(file), '');
+  //     if (filename.should.equal('jordan')) done();
+  //   })
+  // });
 })
