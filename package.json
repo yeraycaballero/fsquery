@@ -1,9 +1,10 @@
 {
   "name": "fsquery",
-  "description" : "Filesystem query api",
+  "description": "Filesystem query api",
   "version": "0.1.0",
-  "engines": { "node": "~0.6.11" },
-  
+  "engines": {
+    "node": "~0.6.11"
+  },
   "devDependencies": {
     "lodash": "*",
     "mocha": "1.6.0",
@@ -12,10 +13,10 @@
     "grunt-contrib-jshint": "~0.4.3",
     "grunt-simple-mocha": "~0.4.0",
     "grunt-contrib-concat": "~0.2.0",
-    "grunt-contrib-uglify": "~0.2.0"
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1"
   },
-
   "scripts": {
-      "test": "mocha ./test/* --reporter list"
+    "test": "mocha ./test/* --reporter list"
   }
 }
