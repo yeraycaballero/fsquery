@@ -36,10 +36,11 @@ module.exports = function(grunt) {
 
     simplemocha : {
       options : {
-        globals : ['should'],
+        //globals : ['should'],
         timeout : 2000,
         ignoreleaks : false,
-        reporter : 'tap'
+        reporter : 'spec',
+        require : './test/common'
       },
       all : { src : ['./test/**/*.js']}
     },
