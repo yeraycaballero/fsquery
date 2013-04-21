@@ -1,11 +1,11 @@
 var fs = require('fs'),
-    fsquery = require('../src/fsquery');
+    attr = require('../src/attributes');
 
 describe('Attributes handler', function() {
 
   it ('should return the filename', function(done) {
     var file = './assets/jordan.png';
-    var filenameHandler = fsquery.getAttributeHandler('filename');
+    var filenameHandler = attr['filename'];
 
     filenameHandler(file, function(err, filename) {
       if (err) return done(err);
@@ -16,7 +16,7 @@ describe('Attributes handler', function() {
 
   it ('should return the extension', function(done) {
     var file = './assets/jordan.png';
-    var extHandler = fsquery.getAttributeHandler('ext');
+    var extHandler = attr['ext'];
 
     extHandler(file, function(err, ext) {
       if (err) return done(err);
@@ -28,7 +28,7 @@ describe('Attributes handler', function() {
   it ('should return the size', function(done) {
     var file = './assets/jordan.png';
     var expectedSize = fs.statSync(file).size;    
-    var sizeHandler  = fsquery.getAttributeHandler('size');
+    var sizeHandler  = attr['size'];
 
     sizeHandler(file, function(err, size) {
       if (err) return done(err);
