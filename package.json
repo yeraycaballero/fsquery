@@ -14,9 +14,12 @@
     "grunt-simple-mocha": "~0.4.0",
     "grunt-contrib-concat": "~0.2.0",
     "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-watch": "~0.3.1"
+    "grunt-contrib-watch": "~0.3.1",
+    "chai": "~1.5.0",
+    "sinon-chai": "~2.3.1",
+    "sinon": "~1.6.0"
   },
   "scripts": {
-    "test": "mocha ./test/* --reporter list"
+    "test": "mocha ./test/* --require ./test/common --reporter spec"
   }
 }
