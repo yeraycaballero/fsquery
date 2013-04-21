@@ -1,6 +1,6 @@
 var _    = require('lodash'),
-attr = require('./attributes'),
-op   = require('./operators');
+attr     = require('./attributes'),
+op       = require('./operators');
 
 var Spec = function(query) {
   this.query = query;
@@ -14,8 +14,8 @@ Spec.prototype.satisfies = function(file, callback) {
   var satisfiesCallback = function(res) {
     result = result && res;
 
-    if (result && index++ === propertiesCount) {
-      callback.call(this, file);  
+    if (result && index++ === propertiesCount) {      
+      callback.call(this, file); 
     }   
   };
   
