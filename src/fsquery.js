@@ -5,10 +5,10 @@ var fsquery = {
   handlers   : {},
   operators  : {},
   
-   in : function(path) {
-     var clazz = require('./query').Query;
-     return new clazz(path);
-   },
+  in : function(path) {
+    var clazz = require('./query').Query;
+    return new clazz(path);
+  },
 
   registerAttributeHandler : function(attributeName, handler) {
     this.attributes.push(attributeName);
@@ -18,6 +18,7 @@ var fsquery = {
   getAttributeHandler : function(attributeName) {
     return this.handlers[attributeName];
   }
+
 };
 
 module.exports = fsquery;
