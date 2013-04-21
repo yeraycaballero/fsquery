@@ -1,5 +1,6 @@
-var should = require('should'),
-    op     = require('../src/operators');
+// var should = require('should'),
+    // op     = require('../src/operators');
+var op = require('../src/operators');
  
 
 describe('Operators', function() {
