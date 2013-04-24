@@ -1,16 +1,15 @@
 var fs     = require('fs'),
     path   = require('path'),
-// should = require('should'),
     gt     = require('../src/operators').gt,
-    fsquery = require('../src/fsquery');
+    Query  = require('../src/query').Query;
 
-/* TODO think theses tests with stubs and spies */
+/* TODO test them with spies */
 
 describe('Query', function() {
   var query = null;
 
   beforeEach(function() {
-    query = fsquery.in('./assets');
+    query = new Query('./assets');
   });
 
   it ('should find a file by filename', function(done) {		
@@ -18,7 +17,8 @@ describe('Query', function() {
 
     query.on('file', function(file) {
       var filename = path.basename(file).replace(path.extname(file), '');
-      if (filename.should.equal('jordan')) done();
+      filename.should.equal('jordan')
+      done();
     })
   });
 
@@ -26,7 +26,8 @@ describe('Query', function() {
     query.where({ ext: '.png'});
 
     query.on('file', function(file) {
-      if (path.extname(file).should.equal('.png')) done();
+      path.extname(file).should.equal('.png')
+      done();
     });
   });
 
@@ -35,35 +36,38 @@ describe('Query', function() {
 
   	query.on('file', function(file) {
       var size = fs.statSync(file).size;
-      if (size.should.equal(14730)) done();
+      size.should.equal(14730);
+      done();
     });
   });
 
-  it ('should find a file with size greater than 20000', function(done) {
-  	query.where({ size : gt(20000)});
+  it ('should find a file with size greater than 25000', function(done) {
+  	query.where({ size : gt(50000)});
 
   	query.on('file', function(file) {
   		var size = fs.statSync(file).size;
-  		if (size.should.greaterThan(20000)) done();
+  		size.should.greaterThan(50000); 
+      done();
   	})
   });
 
   it ('should find a file by multiple a composite spec', function(done) {
     query.where({ filename : 'jordan', ext : '.png'});
 
-    query.on('file', function(file) {
-      if ( (path.basename(file).should.equal('jordan.png')) && path.extname(file).should.equal('.png') ) {
-      	done();
-      }      
+    query.on('file', function(file) {    
+      path.basename(file).should.equal('jordan.png');
+      path.extname(file).should.equal('.png');
+      done();            
     })
   });
 
-  // it ('should find a file at any deep level', function(done) {
-  //   query.where({ filename : 'larry'});
+  it ('should find a file at any deep level', function(done) {
+    query.where({ filename : 'larry'});
 
-  //   query.on('file', function(file) {
-  //     var filename = path.basename(file).replace(path.extname(file), '');
-  //     if (filename.should.equal('jordan')) done();
-  //   })
-  // });
+    query.on('file', function(file) {
+      var filename = path.basename(file).replace(path.extname(file), '');
+      filename.should.equal('larry');
+      done();
+    })
+  });
 })
