@@ -18,9 +18,9 @@ var size = function(filename, callback) {
   callback.apply(this, [null, stat.size]);
 };
 
-fsquery.registerAttributeHandler('filename', filename);
-fsquery.registerAttributeHandler('ext', ext);
-fsquery.registerAttributeHandler('size', size);
+// fsquery.registerAttributeHandler('filename', filename);
+// fsquery.registerAttributeHandler('ext', ext);
+// fsquery.registerAttributeHandler('size', size);
 
 exports.filename = filename;
 exports.ext      = ext;
