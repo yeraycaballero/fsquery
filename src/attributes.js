@@ -1,6 +1,5 @@
 
-var fsquery = require('./fsquery'),
-    path    = require('path'),
+var path    = require('path'),
     fs      = require('fs');
 
 
