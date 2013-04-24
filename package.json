@@ -2,6 +2,12 @@
   "name": "fsquery",
   "description": "Filesystem query api",
   "version": "0.1.0",
+  "author": "yeraycaballero <yeraycaballero@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yeraycaballero/fsquery.git"
+  },
   "engines": {
     "node": "~0.6.11"
   },
@@ -20,6 +26,6 @@
     "sinon": "~1.6.0"
   },
   "scripts": {
-    "test": "mocha ./test/* --require ./test/common --reporter spec"
+    "test": "mocha"
   }
 }

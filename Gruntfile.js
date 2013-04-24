@@ -36,7 +36,6 @@ module.exports = function(grunt) {
 
     simplemocha : {
       options : {
-        //globals : ['should'],
         timeout : 2000,
         ignoreleaks : false,
         reporter : 'spec',
