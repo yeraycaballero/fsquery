@@ -1,13 +1,14 @@
 fs           = require('fs'),
 path         = require('path'),
 util         = require('util'),
-EventEmitter = require('events').EventEmitter;
+EventEmitter = require('events').EventEmitter
 
 var FSWalker = function() {
   EventEmitter.call(this);
-};
+}
 
 util.inherits(FSWalker, EventEmitter);
+
 
 FSWalker.prototype.walk = function(directory) {
   var self = this;
@@ -15,25 +16,25 @@ FSWalker.prototype.walk = function(directory) {
   var walk = function(directory) {
 
     fs.readdir(directory, function(err, files) {
-      if (err) throw err;
+      if (err) self.emit('error', err);
 
-      var pending = files.length;
-      var sPath   = (directory[directory.length - 1] !== path.sep)? directory + path.sep : directory; 
-      
+      var pending = files.length
+      var sPath = path.resolve(directory);
+
       files.forEach(function(filename) {
-        var file = sPath + filename; 
+        var file = sPath + path.sep + filename
 
         fs.lstat(file, function(err, stats) {
-          if (err) throw err;
+          if (err) self.emit('error', err);
 
           if (stats.isFile()) {
-            self.emit('file', file);            
+            self.emit('file', file)     
             if (--pending == 0) self.emit('done');
           } 
           else if (stats.isDirectory) {            
-            self.emit('dir', file);
-            if (--pending == 0) self.emit('done');
-            walk(file);
+            self.emit('dir', file)
+            if (--pending == 0) self.emit('done')
+            walk(file)
           }
         })
       })
@@ -41,6 +42,6 @@ FSWalker.prototype.walk = function(directory) {
   }
 
   walk(directory);
-};
+}
 
-exports.FSWalker = FSWalker;
+exports.FSWalker = FSWalker

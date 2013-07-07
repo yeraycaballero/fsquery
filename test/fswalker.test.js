@@ -1,41 +1,41 @@
-var FSWalker = require('../src/fswalker').FSWalker;
+var FSWalker = require('../src/fswalker').FSWalker
 
-describe('fswalker', function() {
-  var fswalker = null;
-  var listener = null;
+describe('FSWalker', function() {
+  var fsWalker = null;
 
   beforeEach(function() {
-     listener = sinon.spy(FSWalker.prototype, 'emit');
-     fswalker = new FSWalker();
+    fsWalker = new FSWalker();
   });
 
-  afterEach(function() {
-     listener.restore();
-     fswalker = null;
+  it ('should emit a file event when a file is found', function(done) {
+    var spy = sinon.spy();
+
+    fsWalker = new FSWalker();
+    fsWalker.on('file', spy);
+    fsWalker.walk('./assets');
+
+    spy.called.should.equal.true;
+    done();
   });
 
-  it ('shoud emit a file event when a file is found', function(done) {     
-     fswalker.on('file', listener);
-     fswalker.walk('./assets');
-     
-     listener.should.have.been.called;
-     done();
+  it ('should emit a dir event when a directory is found', function(done) {
+      var spy = sinon.spy();
+
+      fsWalker.on('dir', spy);
+      fsWalker.walk('./assets');
+
+      spy.called.should.equal.true;
+      done();
   });
 
-  it ('shoud emit a dir event when a directory is found', function(done) {     
-     fswalker.on('dir', listener);   
-     fswalker.walk('./assets');  
-    
-     listener.should.have.been.called;
-     done();
-  });
+  it ('should emit a done event when it ends', function(done) {
+      var spy = sinon.spy();
 
-  it ('shoud emit a done event when it ends', function(done) {     
-     fswalker.on('done', listener);   
-     fswalker.walk('./assets');  
-    
-     listener.should.have.been.called;
-     done();     
-  });
+      fsWalker.on('done', spy);
+      fsWalker.walk('./assets');
 
-})
+      spy.called.should.equal.true;
+      done();
+  })
+
+});
