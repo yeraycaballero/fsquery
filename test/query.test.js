@@ -9,7 +9,7 @@ describe('Query', function() {
   var op = fsquery.operators;
 
   beforeEach(function() {
-    query = fsquery.in('/Users/yeraycaballero/workspace/fsquery/assets', fsquery);
+    query = fsquery.in('./assets', fsquery);
   });
 
   it ('should find a file by filename', function(done) {
