@@ -1,6 +1,6 @@
 {
   "name": "fsquery",
-  "description": "Filesystem query api",
+  "description": "Declarative Filesystem query api",
   "version": "0.1.0",
   "author": "yeraycaballero <yeraycaballero@gmail.com>",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.3.1",
     "chai": "~1.5.0",
-    "sinon-chai": "~2.3.1",
+    "sinon-chai": "~2.4.0",
     "sinon": "~1.6.0"
   },
   "scripts": {
