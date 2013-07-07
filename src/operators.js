@@ -1,45 +1,53 @@
-// Operators
-_ = require('lodash');
+_        = require('lodash'),
+quantity = require('./quantity');
 
-exports.gt = function(value) {
-  return function(op1) {
-    return op1 > value;
-  }
-};
+exports.operators = {
 
-exports.ge = function(value) {
-  return function(op1) {
-    return op1 >= value;
-  }
-};
+  gt : function(value) {
+    var op2 = (quantity.isQuantity(value))? quantity.isQuantity.toBytes(value) : value;
+    return function(op1) {
+      return op1 > op2;
+    }
+  },
 
-exports.lt = function(value) {
-  return function(op1) {
-    return op1 < value;
-  }
-};
+  ge : function(value) {
+    var op2 = (quantity.isQuantity(value))? quantity.isQuantity.toBytes(value) : value;
+    return function(op1) {
+      return op1 >= op2;
+    }
+  },
 
-exports.le = function(value) {
-  var op2 = value;
-  return function(op1) {
-    return op1 <= op2;
-  }
-};
+  lt : function(value) {
+    var op2 = (quantity.isQuantity(value))? quantity.isQuantity.toBytes(value) : value;
+    return function(op1) {
+      return op1 < op2;
+    }
+  },
 
-exports.eq = function(value) {
-  return function(op1) {
-    return op1 == value;
-  }
-};
+  le : function(value) {
+    var op2 = (quantity.isQuantity(value))? quantity.isQuantity.toBytes(value) : value;
+    return function(op1) {
+      return op1 <= op2;
+    }
+  },
 
-exports.in = function(array) {
-  return function(value) {
-    return _.contains(array, value);
-  }
-};
+  eq : function(value) {
+    var op2 = (quantity.isQuantity(value))? quantity.isQuantity.toBytes(value) : value;
+    return function(op1) {
+      return op1 == op2;
+    }
+  },
 
-exports.notIn = function(array) {  
-  return function(value) {
-    return ! _.contains(array, value);
+  in : function(array) {
+    return function(value) {
+      return _.contains(array, value);
+    }
+  },
+
+  notIn : function(array) {
+    return function(value) {
+      return ! _.contains(array, value);
+    }
   }
+
 };
