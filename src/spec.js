@@ -1,13 +1,13 @@
-var _    = require('lodash'),
-attr     = require('./attributes'),
-op       = require('./operators');
+var _       = require('lodash');
 
-var Spec = function(query) {
-  this.query = query;
+
+var Spec = function(config, context) {
+  this.config = config;
+  this.context = context;
 };
 
 Spec.prototype.satisfies = function(file, callback) {
-  var propertiesCount = Object.keys(this.query).length;
+  var propertiesCount = Object.keys(this.config).length;
   var index = 1;
   var result = true;
 
@@ -17,26 +17,26 @@ Spec.prototype.satisfies = function(file, callback) {
     if (result && index++ === propertiesCount) {      
       callback.call(this, file); 
     }   
-  };
+  }
   
-  for (var key in this.query) {
-    this.satisfiesProperty(file, key, satisfiesCallback); 
+  for (var key in this.config) {
+    this.satisfiesProperty(file, key, satisfiesCallback) 
   }
 };
 
 Spec.prototype.satisfiesProperty = function(file, key, callback) {
-  var attributeHandler = attr[key];
+  var attributeHandler = this.context.get('attribute', key);
 
   if (attributeHandler == null || attributeHandler == undefined) throw new Error('Attribute: ' + key + ' not found.');
 
   attributeHandler.apply(this, [file, function(err, res) {
-    if (err) return callback.call(this, false);
+    if (err) return callback.call(err, false);
 
-    var value = this.query[key];
-    var operator = (typeof value == 'function')? value : op.eq(value);
+    var value = this.config[key];
+    var operator = (typeof value == 'function')? value : this.context.get('operator', 'eq')(value);
 
     callback.call(this, operator.call(this, res));
-  }]);  
+  }])  
 };
 
 exports.Spec = Spec;

@@ -1,18 +1,18 @@
-var fs     = require('fs'),
-    path   = require('path'),
-    gt     = require('../src/operators').gt,
-    Query  = require('../src/query').Query;
+var fs      = require('fs'),
+    path    = require('path'),
+    fsquery = require('../src/fsquery');
 
 /* TODO test them with spies */
 
 describe('Query', function() {
   var query = null;
+  var op = fsquery.operators;
 
   beforeEach(function() {
-    query = new Query('./assets');
+    query = fsquery.in('/Users/yeraycaballero/workspace/fsquery/assets', fsquery);
   });
 
-  it ('should find a file by filename', function(done) {		
+  it ('should find a file by filename', function(done) {
     query.where({ filename : 'jordan'});
 
     query.on('file', function(file) {
@@ -42,22 +42,22 @@ describe('Query', function() {
   });
 
   it ('should find a file with size greater than 25000', function(done) {
-  	query.where({ size : gt(50000)});
+  	query.where({ size : op.gt(50000)});
 
   	query.on('file', function(file) {
   		var size = fs.statSync(file).size;
-  		size.should.greaterThan(50000); 
+  		size.should.greaterThan(50000);
       done();
   	})
   });
 
-  it ('should find a file by multiple a composite spec', function(done) {
+  it ('should find a file by a composite spec', function(done) {
     query.where({ filename : 'jordan', ext : '.png'});
 
-    query.on('file', function(file) {    
+    query.on('file', function(file) {
       path.basename(file).should.equal('jordan.png');
       path.extname(file).should.equal('.png');
-      done();            
+      done();
     })
   });
 

@@ -7,19 +7,19 @@ var _       = require('lodash'),
     Spec    = require('./spec').Spec,
     FSWalker = require('./fswalker').FSWalker;
 
-Query = function Query(sPath) {
-  this.queryPath = _setPath.call(this, sPath);
-  this.fswalker  = new FSWalker(); 
+var Query = function Query(sPath, context) {
+  this.queryPath = path.resolve(sPath);
+  this.context = context;
+  this.fswalker  = new FSWalker();
+  events.EventEmitter.call(this);
 }
 
 util.inherits(Query, events.EventEmitter);
 
 Query.prototype.where = function(config) {
-  fs.readdir(this.queryPath, function(err, files) {
-    if (err) { this.emit('error', err); }
-
-    _findFiles.apply(this, [files, config]);
-  }.bind(this));
+  var files = fs.readdirSync(this.queryPath);
+  _findFiles.apply(this, [files, config]);
+  return this;
 };
 
 var _findFiles = function(files, config) {
@@ -29,24 +29,23 @@ var _findFiles = function(files, config) {
   var onFile = function(file) {
     this.emit('file', file);
   }.bind(this);
-  
+
   var onDone = function() {
-    foundFilesCount++;   
+    foundFilesCount++;
     this.emit('done', foundFilesCount);
   }.bind(this);
 
   this.fswalker.walk(this.queryPath);
 
   this.fswalker.on('file', function(file) {
-    var spec = new Spec(config);
-    spec.satisfies(file, onFile);  
+    var spec = new Spec(config, this.context);
+    spec.satisfies(file, onFile);
     if (--count === 0) { onDone(); }
   }.bind(this));
-};
 
-var _setPath = function(sPath) {
-  return (sPath[sPath.length - 1] !== path.sep)? sPath + path.sep : sPath; 
+  this.fswalker.on('error', function() {
+    this.emit('error', err);
+  }.bind(this));
 };
-
 
 exports.Query = Query;
