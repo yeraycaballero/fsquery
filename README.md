@@ -1,7 +1,7 @@
 fsquery
-  =======
+=======
 
-Declarative Filesystem query library that allow to look for files by a specification.
+*Declarative Filesystem query library that allow to find files by a specification*
 
 Play time
 -------------
