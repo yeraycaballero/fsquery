@@ -1,42 +1,42 @@
 var fs = require('fs'),
-    attr = require('../src/attributes');
+    fsquery = require('../src/fsquery')
+
 
 describe('Attributes handler', function() {
 
   it ('should return the filename', function(done) {
-    var file = './assets/jordan.png';
-    var filenameHandler = attr['filename'];
+    var file = './assets/jordan.png'
+    var filenameHandler = fsquery.get('attribute', 'filename')
 
     filenameHandler(file, function(err, filename) {
-      if (err) return done(err);
-      filename.should.equal('jordan');
+      if (err) return done(err)
+      filename.should.equal('jordan')
       done();
     })
   });
 
   it ('should return the extension', function(done) {
-    var file = './assets/jordan.png';
-    var extHandler = attr['ext'];
+    var file = './assets/jordan.png'
+    var extHandler = fsquery.get('attribute', 'ext')
 
     extHandler(file, function(err, ext) {
-      if (err) return done(err);
-      ext.should.equal('.png');
+      if (err) return done(err)
+      ext.should.equal('.png')
       done();
     })
   });
 
   it ('should return the size', function(done) {
     var file = './assets/jordan.png';
-    var expectedSize = fs.statSync(file).size;    
-    var sizeHandler  = attr['size'];
+    var expectedSize = fs.statSync(file).size   
+    var sizeHandler  = fsquery.get('attribute', 'size');
 
     sizeHandler(file, function(err, size) {
-      if (err) return done(err);
-      size.should.equal(expectedSize);
-      done();
+      if (err) return done(err)
+      size.should.equal(expectedSize)
+      done()
     })
   });
-
 
 })
 
